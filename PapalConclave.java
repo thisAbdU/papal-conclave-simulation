@@ -61,6 +61,9 @@ public class PapalConclave {
             this.persuasibility = rnd.nextInt(PERSUASION_MAX);
             this.preference = id; // Initially prefer themselves
             conclave.registerInfluence(id, this.influence);
+
+            // Print initial vote preference
+            // System.out.printf("Cardinal %d initially prefers candidate %d%n", id, preference);
         }
 
         @Override
@@ -121,6 +124,7 @@ public class PapalConclave {
 
             // Change preference based on persuasion probability
             if (rnd.nextInt(PERSUASION_DIVISOR) < persuasionProbability) {
+                // System.out.printf("Cardinal %d changed preference from candidate %d to candidate %d due to influence%n", id, preference, leader);
                 preference = leader;
             }
         }
@@ -182,6 +186,13 @@ public class PapalConclave {
          * @return Winner ID if election is decided, -1 otherwise
          */
         synchronized int castVote(int candidateId) throws InterruptedException {
+        // System.out.printf("Cardinal %d is casting their vote for candidate %d%n", 
+        // Thread.currentThread().getId(), candidateId);
+
+        // Print which candidate voted for who
+        // System.out.printf("Vote recorded: Cardinal %d voted for candidate %d%n", 
+        //         Thread.currentThread().getId(), candidateId);
+
             if (conclaveEnded)
                 return winner;
 
